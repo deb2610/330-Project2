@@ -59,13 +59,17 @@
             <option>No preference</option>
         </select>
         <button class="btn" type="submit" @click="search">Search</button>
-        <div class="row" >
-            <div>{{ results.name }}</div>
-            <div>{{ results.breeds }}</div>
-            <div>{{ results.age }}</div>
-            <div>{{ results.size }}</div>
+        <p>{{ name }}</p>
+        <p>{{ age }}</p>
 
-        </div>
+        <!-- <div class="row" v-for="item, i in results" v-if="i < num">
+            <span>{{name}}</span>
+            <span v-text="item.breed">bop</span>
+            <span>{{age}}</span>
+            <span v-text="item.size">bop</span>
+
+        </div> -->
+        
     </div>
 
 

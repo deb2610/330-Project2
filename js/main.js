@@ -2,8 +2,10 @@ const app = new Vue({
     el: '#app',
     data: {
         title: "Fetch",
-        results: [],
-        num: 0
+        results: {},
+        name: "",
+        age: "",
+        num: 1
     },
     methods: {
         search() {
@@ -11,8 +13,14 @@ const app = new Vue({
 
             pf.animal.search()
                 .then(function (e) {
-                    console.log(e.data.animals[0]);
                     this.results = e.data.animals[0];
+                    this.name = results.name;
+                    this.age = results.age;
+
+                    console.log(this.results);
+                    console.log(this.name);
+                    console.log(this.age);
+
                 })
                 .catch(function (e) {
 
