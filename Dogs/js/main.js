@@ -10,11 +10,11 @@ const app = new Vue({
     methods: {
         search() {
             let pf = new petfinder.Client({ apiKey: "3aPqyYam1lM9nzOX5yAUempjnMNDApTMvEwCr8VSwV4RX8j0OK", secret: "LzTl7yGbikkCB9Cx5yBr3vIfUyGl7bmCdLp3JAXT" });
-
+            //http://api.petfinder.com/my.method?key=12345&arg1=foo
             pf.animal.search()
                 .then(function (e) {
                     this.results = e.data.animals[0];
-                    this.name = results.name;
+                    this.name = "\"" +results.name + "\"";
                     this.age = results.age;
 
                     console.log(this.results);
@@ -27,7 +27,20 @@ const app = new Vue({
                 })
 
 
-        }
+        },
+        search2() {
+            fetch("http://api.petfinder.com/pet.getRandom?format=json&key=3aPqyYam1lM9nzOX5yAUempjnMNDApTMvEwCr8VSwV4RX8j0OK&animal=dog",{mode: 'no-cors'})
+                .then(response => {
+                    if (!response.ok) {
+                        throw Error(`ERROR: ${response.statusText}`);
+                    }
+                    return response.json();
+                })
+                .then(json => {
+                    console.log(json);
+                    this.results = json;
+                })
+        },
     }
 
 });
