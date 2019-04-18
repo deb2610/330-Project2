@@ -20,7 +20,7 @@ const app = new Vue({
             pf.animal.search()
                 .then(function (e) {
                     // console.log(e);
-                    this.results = [];
+                    //this.results = [];
                     this.names = [];
                     // this.results = e.data.animals;
                     tempResults = e.data.animals;
@@ -28,12 +28,8 @@ const app = new Vue({
                     for (let i = 0; i < 20; i++) 
                     {
                         testnames[i] = tempResults[i].name;
-                        console.log(testnames[i]);
+                        //console.log(testnames[i]);
                     }
-
-                    // console.log(this.results);
-                    // console.log(this.name);
-                    // console.log(this.age);
                     return tempResults;
                 })
                 .then(function () {
