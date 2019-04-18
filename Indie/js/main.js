@@ -1,3 +1,6 @@
+        
+        
+
 const app = new Vue({
     el: '#app',
     data: {
@@ -7,18 +10,20 @@ const app = new Vue({
     },
     methods: {
         search() {
-            fetch("",{mode: 'no-cors'})
-                .then(response => {
-                    if (!response.ok) {
-                        throw Error(`ERROR: ${response.statusText}`);
-                    }
-                    return response.json();
-                })
-                .then(json => {
-                    console.log(json);
-                    this.results = json;
-                })
+            Itch.getGameData({
+                user: "leafo",
+                game: "x-moon",
+                onComplete: function(returndata) {
+                    this.results = returndata;
+                    console.log("GOT DATA");
+
+                }
+            })
         },
+        printdata(){
+            console.log("PRINTING DATA");
+            console.log(this.results);
+        }
     }
 
 });

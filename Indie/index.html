@@ -25,6 +25,7 @@
     <!-- Steam APIs -->
     
     <!-- Itch API -->
+    <script type="text/javascript" src="https://static.itch.io/api.js"></script>
 
     <!-- CSS & JS -->
     
@@ -36,13 +37,18 @@
     <div id="app">
         <h1>{{ title }}</h1>
         <p class="subtitle">Game On!</p>
-        
+        <button class="btn" type="submit" @click="search">Search</button>
+        <button class="btn" type="submit" @click="printdata">Print</button>
+
+        <p>{{ results.title }}</p>
+        <p>{{ results.price }}</p>
        
         
     </div>
 
 
     <script src="js/main.js"></script>
+    
 </body>
 
 </html>
