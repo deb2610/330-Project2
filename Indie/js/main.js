@@ -16,6 +16,8 @@ const app = new Vue({
                 })
                 .then(json => {
                     console.log(json);
+
+                
                     this.results = json;
                 })
         },
