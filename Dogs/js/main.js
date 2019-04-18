@@ -10,6 +10,9 @@ const app = new Vue({
         num: 1
     },
     methods: {
+        map(){
+            console.log(this.results.name);
+        },
         search() {
             
             let pf = new petfinder.Client({ apiKey: "3aPqyYam1lM9nzOX5yAUempjnMNDApTMvEwCr8VSwV4RX8j0OK", secret: "LzTl7yGbikkCB9Cx5yBr3vIfUyGl7bmCdLp3JAXT" });
