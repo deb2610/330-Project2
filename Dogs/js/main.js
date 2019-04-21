@@ -39,9 +39,10 @@ const app = new Vue({
                 })
                 .then(()=>{
                     console.log("hello");
-                    display();})
+                    this.display();})
 
-                .catch(function (e) {})     
+                .catch(function (e) {})
+
         },
         display()
         {
@@ -49,9 +50,7 @@ const app = new Vue({
 
             this.results = tempResults;
 
-            // for (let i = 0; i < 20; i++) {
-            //     this.names[i] = testnames[i];
-            // }
+            
         }
     }
 });
