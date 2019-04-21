@@ -3,7 +3,7 @@ let tempResults = [];
 const app = new Vue({
     el: '#app',
     data: {
-        title: "Fetch",
+        title: "Fetch!",
         results: [],
         names: [],
         age: "",
