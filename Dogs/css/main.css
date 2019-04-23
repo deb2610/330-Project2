@@ -25,34 +25,52 @@
     
 }
 .top{
+    display: flex;
+    align-items: center;
+    justify-content: center;
     padding-top: .5vh;
     font-family: var(--font-main);
     text-align: center;
     background-color: var(--palette-3);
-}
-.top h1{
-    font-family: var(--font-header);
-    color: var(--palette-2);
+    width: 100vw;
 }
 .content{
     background-color: var(--palette-1);
     width: 80vw;
     margin-left: 10vw;
     padding-top: 1vh;
-
+    padding-bottom: 5vh;
+    
+    
+    
 }
 .footer{
     background-color: var(--palette-3);
+    color: var(--text-color-light);
+    padding-top: .5vh;
+    text-align: center;
 }
 
 /* Styles */
 body{
     background-color: var(--palette-0);
 }
+#logo{
+    max-height: 90%;
+    margin: 0vw 1vw;
+    /* padding: 2vh 0vw; */
+    
+}
 .subtitle{
     font-size: 14pt;
     font-style: italic;
     color: var(--text-color-light);
+    transform: translateY(-1.75vh);
+}
+.title{
+    font-family: var(--font-header);
+    color: var(--palette-2);
+    margin: 0;
 }
 h1{
     font-size: 28pt;
@@ -79,7 +97,7 @@ button {
     background-color: white;
     max-width: 40vw;
     margin-left: 20vw;
-    font-size: 2vw;
+    font-size: 1em;
 
 }
 #map{

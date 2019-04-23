@@ -43,16 +43,19 @@
     <div id="app">
         <div class="gridContainer">
             <div class="top">
-                <h1>{{ title }}</h1>
-                <p class="subtitle">Find a friend!</p>
+                <img id="logo" src="images/doggo.png" alt="logo">
+                <div>
+                    <h1 class="title">{{ title }}</h1>
+                    <p class="subtitle">Find a friend!</p>
+                </div>
             </div>
             <div class="content">
-                    <p class="paramLabel">Choose a breed!</p>
+                    <p class="paramLabel">Choose Friend Type!</p>
                     <select class="paramOption">
-                        <option>Breed 1</option>
-                        <option>Breed 2</option>
+                        <option>Dog</option>
+                        <option>Cat</option>
                     </select><br>
-                    <p class="paramLabel">Travel Radias</p>
+                    <p class="paramLabel">Travel Radius</p>
                     <select class="paramOption">
                         <option>5 miles</option>
                         <option>10 miles</option>
@@ -77,7 +80,9 @@
                     <div id='map'  v-if="showMap=true"></div>
                     <!-- style='width: 640px; height: 480px;' -->
             </div>
-            <div class="footer"></div>
+            <div class="footer">
+                <p>© Behan & Bernstein 2019. All Rights Reserved.</p>
+            </div>
         </div>        
         
         
