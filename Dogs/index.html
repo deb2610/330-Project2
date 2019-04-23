@@ -20,59 +20,66 @@
         };
         firebase.initializeApp(config);
     </script>
+    
     <!-- Vue -->
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    
     <!-- Mapbox APIs -->
-    <script
-        src='https://static-assets.mapbox.com/gl-pricing/dist/mapbox-gl.js'>//API Key: pk.eyJ1IjoiZm9sbGllZmlyZSIsImEiOiJjanVoN2twaWkwd3FxNDRtamd1cWhhOTI4In0.Xu8_iPw38EZCMI7tUlqzQQ</script>
-    <link href='https://api.mapbox.com/mapbox-gl-js/v0.53.0/mapbox-gl.css' rel='stylesheet' />
-
-    <!-- Pet Finder API -->
+    <script src='https://static-assets.mapbox.com/gl-pricing/dist/mapbox-gl.js'></script>
+    <link href='https://api.mapbox.com/mapbox-gl-js/v0.53.0/mapbox-gl.css' rel='stylesheet' />    <!-- Pet Finder API -->
+    
+    
+    <!--PetFinder API-->
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="https://unpkg.com/@petfinder/petfinder-js/dist/petfinder.min.js">//API Key: 3aPqyYam1lM9nzOX5yAUempjnMNDApTMvEwCr8VSwV4RX8j0OK  secret: LzTl7yGbikkCB9Cx5yBr3vIfUyGl7bmCdLp3JAXT</script>
-    <!-- CSS & JS -->
     
+    <!-- CSS & JS -->
+    <link href="https://fonts.googleapis.com/css?family=Bevan" rel="stylesheet">
     <link href="css/main.css" rel="stylesheet">
 
 </head>
 
 <body>
     <div id="app">
-        <h1>{{ title }}</h1>
-        <p class="subtitle">Find a friend!</p>
-        <label>Choose a breed!</label><br>
-        <select>
-            <option>Breed 1</option>
-            <option>Breed 2</option>
-        </select><br>
-        <label>How far are you willing to search from your current location</label><br>
-        <select>
-            <option>5 miles</option>
-            <option>10 miles</option>
-            <option>Anywhere</option>
-        </select><br>
-        <label>Rescue or Breeder</label><br>
-        <select>
-            <option>Breeder only</option>
-            <option>Rescue only</option>
-            <option>No preference</option>
-        </select>
-        <button class="btn" type="submit" @click="search">Search</button>
-        <button class="btn" type="submit" @click="display">display</button>
-
-        <div v-for="item in results">
-            <p>{{item.name}}</p>
-        </div>
-
-        <!-- <div class="row" v-for="item, i in results" v-if="i < num">
-            <span>{{name}}</span>
-            <span v-text="item.breed">bop</span>
-            <span>{{age}}</span>
-            <span v-text="item.size">bop</span>
-
-        </div> -->
-
-        <button class="btn" type="submit" @click="map">Show me where this friend is!</button>
+        <div class="gridContainer">
+            <div class="top">
+                <h1>{{ title }}</h1>
+                <p class="subtitle">Find a friend!</p>
+            </div>
+            <div class="content">
+                    <p class="paramLabel">Choose a breed!</p>
+                    <select class="paramOption">
+                        <option>Breed 1</option>
+                        <option>Breed 2</option>
+                    </select><br>
+                    <p class="paramLabel">Travel Radias</p>
+                    <select class="paramOption">
+                        <option>5 miles</option>
+                        <option>10 miles</option>
+                        <option>Anywhere</option>
+                    </select><br>
+                    <p class="paramLabel">Rescue or Breeder</p>
+                    <select class="paramOption">
+                        <option>Breeder only</option>
+                        <option>Rescue only</option>
+                        <option>No preference</option>
+                    </select>
+                    <button class="btn" type="submit" @click="search">Search</button>
+                    <!-- <button class="btn" type="submit" @click="display">display</button> -->
+                    <hr>
+                    <div class="dogBox" v-for="item in results.slice(0,1)">
+                        <p class="pLabel">Name: <span class="pResult">{{item.name}}</span></p>
+                        <p class="pLabel">Species: <span class="pResult">{{item.species}}</span></p>
+                        <p class="pLabel">Age: <span class="pResult">{{item.age}}</span></p>
+                        <p class="pLabel">Contact info: <span class="pResult">{{item.contact.email}}</span></p>
+                        <p class="pLabel">Status: <span class="pResult">{{item.status}}</span></p>
+                    </div>
+                    <div id='map'  v-if="showMap=true"></div>
+                    <!-- style='width: 640px; height: 480px;' -->
+            </div>
+            <div class="footer"></div>
+        </div>        
+        
         
     </div>
 
