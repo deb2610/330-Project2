@@ -1,59 +1,48 @@
-
+window.onload = init;
 let testnames = [];
 let tempResults = [];
 let maps;
 
 
+function init() {
 
+}
 
+let speciesSelect = {
+    species: "Dog"
+};
 const app = new Vue({
     el: '#app',
     data: {
         title: "Fetch!",
         results: [],
-        names: [],
         age: "",
         num: 1,
         contact: [],
+        species: "Dog",
         dog: true,
+        gender: "No",
+        age: "No",
         filtered: [],
-        count: 0
+        count: 0,
+        maxCount: 0
     },
     methods: {
 
         search() {
 
             let pf = new petfinder.Client({ apiKey: "3aPqyYam1lM9nzOX5yAUempjnMNDApTMvEwCr8VSwV4RX8j0OK", secret: "LzTl7yGbikkCB9Cx5yBr3vIfUyGl7bmCdLp3JAXT" });
-            //http://api.petfinder.com/my.method?key=12345&arg1=foo
+            if (this.species == "Cat") {
+                console.log("cat");
+                dog = false;
+            }
             pf.animal.search()
                 .then(function (e) {
-                    // console.log(e);
-                    //this.results = [];
-                    this.names = [];
-                    // this.results = e.data.animals;
+                    console.log("searchin");
                     tempResults = e.data.animals;
-                    //console.log(results);
                     for (let i = 0; i < 20; i++) {
-                        // if(dog == true)
-                        // {
-                        //     if(tempResults[i].species == "dog")
-                        //     {
-                        //         console.log(tempResults[i].name);
-                        //         filtered[count] = tempResults[i];
-                        //         count++;
-                        //     }
-                        // }
-                        // else{
-                        //     if(tempResults[i].species == "cat")
-                        //     {
-                        //         console.log(tempResults[i].name);
-                        //         filtered[count] = tempResults[i];
-                        //         count++;
-                        //     }
-                        // }
 
                         testnames[i] = tempResults[i].name;
-                        //console.log(testnames[i]);
                     }
                     count = 0;
                     return tempResults;
@@ -61,11 +50,11 @@ const app = new Vue({
                 .then(function () {
                     console.log(tempResults);
                     this.results = tempResults;
-                    // this.names = testnames;
+
                 })
                 .then(() => {
-                    console.log("hello");
-                    
+                    this.filterSpecies(this.results);
+
                     this.display();
                     this.map();
                 })
@@ -74,8 +63,6 @@ const app = new Vue({
 
         },
         display() {
-            console.log("ive been summoned");
-
             this.results = tempResults;
             let temp = [];
             for (let i = 0; i < 20; i++) {
@@ -95,14 +82,18 @@ const app = new Vue({
         },
         wishlistAdd() {
 
-        },
-
-        //Helper methods, temporary?
-        toggleDog() {
-            this.dog = true;
-        },
-        toggleCat() {
-            this.dog = false;
+        }
+        ,
+        filterSpecies(list)
+        {
+            if(this.species == "Cat")
+            {
+               console.log("Pussy");
+            }
+            else {
+                console.log("Bitch");
+            }
+            
         }
     }
 });

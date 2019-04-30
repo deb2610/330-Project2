@@ -51,33 +51,35 @@
             </div>
             <div class="content">
                     <p class="paramLabel">Choose Friend Type!</p>
-                    <select class="paramOption">
-                        <option @click="dog = true">Dog</option>
-                        <option @click="dog = false">Cat</option>
+                    <select class="paramOption" v-model="species">
+                        <option value="Dog">Dog</option>
+                        <option value="Cat">Cat</option>
                     </select><br>
                     <p class="paramLabel">Gender</p>
-                    <select class="paramOption">
-                        <option>Male</option>
-                        <option>Female</option>
-                        <option>No Preference</option>
+                    <select class="paramOption"  v-model="gender">
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                        <option value="No">No Preference</option>
                     </select><br>
                     <p class="paramLabel">Age of Friend</p>
-                    <select class="paramOption">
-                        <option>Baby</option>
-                        <option>Young</option>
-                        <option>Adult</option>
-                        <option>No Preference</option>
+                    <select class="paramOption"  v-model="age">
+                        <option value="Baby">Baby</option>
+                        <option value="Young">Young</option>
+                        <option value="Adult">Adult</option>
+                        <option value="No">No Preference</option>
                     </select>
 
                     <button class="btn" type="submit" @click="search">Search</button>
                     <!-- <button class="btn" type="submit" @click="display">display</button> -->
                     <hr>
+                    <div><img src="images/loading.gif" /></div>
                     <div class="dogBox" v-for="item in results.slice(0,1)">
                         <p class="pLabel">Name: <span class="pResult">{{item.name}}</span></p>
                         <p class="pLabel">Species: <span class="pResult">{{item.species}}</span></p>
                         <p class="pLabel">Age: <span class="pResult">{{item.age}}</span></p>
                         <p class="pLabel">Contact info: <span class="pResult">{{item.contact.email}}</span></p>
                         <p class="pLabel">Status: <span class="pResult">{{item.status}}</span></p>
+                        
                     </div>
                     <div id='map'></div>
                     <!-- style='width: 640px; height: 480px;' -->
