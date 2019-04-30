@@ -52,21 +52,23 @@
             <div class="content">
                     <p class="paramLabel">Choose Friend Type!</p>
                     <select class="paramOption">
-                        <option>Dog</option>
-                        <option>Cat</option>
+                        <option @click="dog = true">Dog</option>
+                        <option @click="dog = false">Cat</option>
                     </select><br>
-                    <p class="paramLabel">Travel Radius</p>
+                    <p class="paramLabel">Gender</p>
                     <select class="paramOption">
-                        <option>5 miles</option>
-                        <option>10 miles</option>
-                        <option>Anywhere</option>
+                        <option>Male</option>
+                        <option>Female</option>
+                        <option>No Preference</option>
                     </select><br>
-                    <p class="paramLabel">Rescue or Breeder</p>
+                    <p class="paramLabel">Age of Friend</p>
                     <select class="paramOption">
-                        <option>Breeder only</option>
-                        <option>Rescue only</option>
-                        <option>No preference</option>
+                        <option>Baby</option>
+                        <option>Young</option>
+                        <option>Adult</option>
+                        <option>No Preference</option>
                     </select>
+
                     <button class="btn" type="submit" @click="search">Search</button>
                     <!-- <button class="btn" type="submit" @click="display">display</button> -->
                     <hr>
@@ -77,7 +79,7 @@
                         <p class="pLabel">Contact info: <span class="pResult">{{item.contact.email}}</span></p>
                         <p class="pLabel">Status: <span class="pResult">{{item.status}}</span></p>
                     </div>
-                    <div id='map'  v-if="showMap=true"></div>
+                    <div id='map'></div>
                     <!-- style='width: 640px; height: 480px;' -->
             </div>
             <div class="footer">

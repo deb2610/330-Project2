@@ -3,6 +3,9 @@ let testnames = [];
 let tempResults = [];
 let maps;
 
+
+
+
 const app = new Vue({
     el: '#app',
     data: {
@@ -12,7 +15,9 @@ const app = new Vue({
         age: "",
         num: 1,
         contact: [],
-        showMap: false
+        dog: true,
+        filtered: [],
+        count: 0
     },
     methods: {
 
@@ -29,9 +34,28 @@ const app = new Vue({
                     tempResults = e.data.animals;
                     //console.log(results);
                     for (let i = 0; i < 20; i++) {
+                        // if(dog == true)
+                        // {
+                        //     if(tempResults[i].species == "dog")
+                        //     {
+                        //         console.log(tempResults[i].name);
+                        //         filtered[count] = tempResults[i];
+                        //         count++;
+                        //     }
+                        // }
+                        // else{
+                        //     if(tempResults[i].species == "cat")
+                        //     {
+                        //         console.log(tempResults[i].name);
+                        //         filtered[count] = tempResults[i];
+                        //         count++;
+                        //     }
+                        // }
+
                         testnames[i] = tempResults[i].name;
                         //console.log(testnames[i]);
                     }
+                    count = 0;
                     return tempResults;
                 })
                 .then(function () {
@@ -41,6 +65,7 @@ const app = new Vue({
                 })
                 .then(() => {
                     console.log("hello");
+                    
                     this.display();
                     this.map();
                 })
@@ -64,6 +89,20 @@ const app = new Vue({
             maps = new MapResult(this.results);
             maps.maps();
             maps.contactLoc();
+        },
+        wishlistView() {
+
+        },
+        wishlistAdd() {
+
+        },
+
+        //Helper methods, temporary?
+        toggleDog() {
+            this.dog = true;
+        },
+        toggleCat() {
+            this.dog = false;
         }
     }
 });
