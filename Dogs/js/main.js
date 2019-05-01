@@ -68,12 +68,6 @@ const app = new Vue({
                 .then(function (e) {
                     console.log("searchin");
                     tempResults = e.data.animals;
-
-                    for (let i = 0; i < 20; i++) {
-                        console.log(tempResults[i].species);
-                    }
-
-                    console.log(this.filterResults);
                     return tempResults;
                 })
                 .then(function () {
@@ -156,6 +150,7 @@ const app = new Vue({
 class MapResult {
     constructor(animals) {
         this.animal = animals[0];
+        this.address = this.animal.contact.address.city + ", " + this.animal.contact.address.state;
     }
     maps() {
         console.log("MAP");
@@ -169,6 +164,44 @@ class MapResult {
         map.setZoom(1);
         map.setCenter([-77.6799, 43.083848]);
 
+
+        let geocoder = new MapboxGeocoder({ // Initialize the geocoder
+            accessToken: mapboxgl.accessToken, // Set the access token
+            mapboxgl: mapboxgl, // Set the mapbox-gl instance
+            marker: false, 
+            placeholder: "Please Hit Enter"// Do not use the default marker style
+             // Placeholder text for the search bar
+            // Coordinates of UC Berkeley
+          });
+        map.addControl(geocoder);
+        map.on('load', function() {
+            map.addSource('single-point', {
+              type: 'geojson',
+              data: {
+                type: 'FeatureCollection',
+                features: []
+              }
+            });
+          
+            map.addLayer({
+              id: 'point',
+              source: 'single-point',
+              type: 'circle',
+              paint: {
+                'circle-radius': 10,
+                'circle-color': '#448ee4'
+              }
+            });
+          
+            // Listen for the `result` event from the Geocoder
+            // `result` event is triggered when a user makes a selection
+            //  Add a marker at the result's coordinates
+            geocoder.on('result', function(e) {
+                
+              map.getSource('single-point').setData(e.result.geometry);
+            });
+          });
+        
     }
     contactLoc() {
         if (typeof this.animal.contact.address.address1 == "null" || typeof this.animal.contact.address.address1 == "undefined") {
@@ -183,16 +216,7 @@ class MapResult {
         console.log(this.animal.contact.phone);
         console.log(this.animal.url);
 
-        let geocodeFriend = mapboxSdk({ accessToken: "pk.eyJ1Ijoib25lcmVkc2hvZSIsImEiOiJjanVyN252Mzkzd2oxNGZwajRpenJjZHBoIn0.fxVWTe9SNmU1sXG-ZNSOEw" });
-        geocodeFriend.forwardGeocode({
-            query: '' + this.animal.contact.address.address1 + ' ' + this.animal.contact.address.city + ',' + ' ' + this.animal.contact.address.state,
-            countries: ['' + this.animal.contact.address.country]
-        })
-            .send()
-            .then(response => {
-                const match = response.body;
-                console.log(match);
-            });
+        
     }
 }
 
