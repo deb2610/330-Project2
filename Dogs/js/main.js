@@ -4,37 +4,14 @@ window.onload = init;
 let testnames = [];
 let tempResults = [];
 let currentSpecies;
+let currentAge;
+let currentGender;
 let maps;
 
 
 function init() {
-    // doesn't work
-    // const speciesSave = app.species;
-    // const genderSave = app.gender;
-    // const ageSave = app.age;
-    // const prefix = "330-03-";
-    // const speciesKey = prefix + "species";
-    // const genderKey = prefix + "gender";
-    // const ageKey = prefix + "age";
 
-    // const storedSpecies = localStorage.getItem(speciesKey);
-    // const storedGender = localStorage.getItem(genderKey);
-    // const storedAge = localStorage.getItem(ageKey);
-
-    // if(storedSpecies){
-    //     app.species = storedSpecies;
-    // }
-    // if(storedGender){
-    //     app.gender = storedGender;
-    // }
-    // if(storedAge){
-    //     app.age = storedAge;
-    // }
-
-    // speciesSave.onchange = e => { localStorage.setItem(speciesKey, e.target.value); };
-    // genderSave.onchange = e => { localStorage.setItem(genderKey, e.target.value); };
-    // ageSave.onchange = e => { localStorage.setItem(ageKey, e.target.value); };
-
+    
 }
 
 let speciesSelect = {
@@ -47,121 +24,27 @@ const app = new Vue({
         results: [],
         num: 1,
         contact: [],
-        species: "Dog",
-        dog: true,
-        gender: "No",
-        age: "No",
-        filtered: [],
+        petSpecies: "Dog",
+        petGender: "No",
+        petAge: "No",
+        filterResults: [],
         count: 0,
         maxCount: 0
     },
     methods: {
 
         search() {
-
-            if (this.species == "Cat") {
-                console.log("cat");
-                if (this.gender == "Male") {
-                    console.log("Man");
-                    if (this.age == "Baby") {
-                        console.log("Baby");
-                    }
-                    else if (this.age == "Young") {
-                        console.log("Young");
-                    }
-                    else if (this.age == "Adult") {
-                        console.log("Adult");
-                    }
-                    else {
-                        console.log("No");
-                    }
-
-                }
-                else if (this.gender == "Female") {
-                    console.log("Woman");
-                    if (this.age == "Baby") {
-                        console.log("Baby");
-                    }
-                    else if (this.age == "Young") {
-                        console.log("Young");
-                    }
-                    else if (this.age == "Adult") {
-                        console.log("Adult");
-                    }
-                    else {
-                        console.log("No");
-                    }
-                }
-                else {
-                    console.log("No");
-                    if (this.age == "Baby") {
-                        console.log("Baby");
-                    }
-                    else if (this.age == "Young") {
-                        console.log("Young");
-                    }
-                    else if (this.age == "Adult") {
-                        console.log("Adult");
-                    }
-                    else {
-                        console.log("No");
-                    }
-                }
-            }
-            else {
-                console.log("dog");
-                if (this.gender == "Male") {
-                    console.log("Man");
-                    if (this.age == "Baby") {
-                        console.log("Baby");
-                    }
-                    else if (this.age == "Young") {
-                        console.log("Young");
-                    }
-                    else if (this.age == "Adult") {
-                        console.log("Adult");
-                    }
-                    else {
-                        console.log("No");
-                    }
-
-                }
-                else if (this.gender == "Female") {
-                    console.log("Woman");
-                    if (this.age == "Baby") {
-                        console.log("Baby");
-                    }
-                    else if (this.age == "Young") {
-                        console.log("Young");
-                    }
-                    else if (this.age == "Adult") {
-                        console.log("Adult");
-                    }
-                    else {
-                        console.log("No");
-                    }
-                }
-                else {
-                    console.log("No");
-                    if (this.age == "Baby") {
-                        console.log("Baby");
-                    }
-                    else if (this.age == "Young") {
-                        console.log("Young");
-                    }
-                    else if (this.age == "Adult") {
-                        console.log("Adult");
-                    }
-                    else {
-                        console.log("No");
-                    }
-                }
-            }
-            this.petSearch("Dog", "Male", "Baby");
-
+            this.filterResults = [];
+            this.maxCount = 20;
+            this.count = 0;
+            this.petSearch();
         },
         display() {
-            this.results = tempResults;
+            this.results = this.filterResults;
+            if(this.maxCount == 0)
+            {
+                this.results[0].name = "No Results Found";
+            }
             let temp = [];
             for (let i = 0; i < 20; i++) {
                 temp[i] = tempResults[i].contact;
@@ -185,29 +68,86 @@ const app = new Vue({
                 .then(function (e) {
                     console.log("searchin");
                     tempResults = e.data.animals;
-                    for (let i = 0; i < 20; i++) {
-                        if (tempResults[i].species == "Dog") {
-                            
-                        }
 
+                    for (let i = 0; i < 20; i++) {
+                        console.log(tempResults[i].species);
                     }
-                    this.maxCount = this.count;
-                    this.count = 0;
-                    console.log(this.filtered);
+
+                    console.log(this.filterResults);
                     return tempResults;
                 })
                 .then(function () {
                     console.log(tempResults);
                     this.results = tempResults;
+
                 })
                 .then(() => {
+
+                    this.filter();
                     this.display();
                     this.map();
                 })
                 .catch(function (e) { })
         },
-        comparer(var1, var2) {
-            return var1 == var2;
+        filter() {
+
+            for (let i = 0; i < this.maxCount; i++) {
+                currentSpecies = results[i].species;
+                if (this.petSpecies == currentSpecies) {
+                    this.filterResults[this.count] = results[i];
+                    this.count++;
+                }
+            }
+            this.maxCount = this.count;
+            this.count = 0;
+            // console.log("Species filter");
+            // console.log(this.maxCount);
+            // console.log(this.count);
+            // console.log(this.filterResults);
+
+            if (this.petGender != "No") {
+                for (let i = 0; i < this.maxCount; i++) {
+                    currentGender = this.filterResults[i].gender;
+                    if (this.petGender == currentGender) {
+                        this.filterResults[this.count] = this.filterResults[i];
+                        this.count++;
+                    }
+                }
+                for (let i = this.count; i < 20; i++) {
+                    this.filterResults[i] = "";
+                }
+                this.maxCount = this.count;
+                this.count = 0;
+                // console.log("Gender filter");
+                // console.log(this.maxCount);
+                // console.log(this.count);
+                // console.log(this.filterResults);
+
+            }
+            if (this.petAge != "No") {
+                for (let i = 0; i < this.maxCount; i++) {
+                    currentAge = this.filterResults[i].age;
+                    if (this.petAge == currentAge) {
+                        this.filterResults[this.count] = this.filterResults[i];
+                        this.count++;
+                    }
+                }
+                for (let i = this.count; i < 20; i++) {
+                    this.filterResults[i] = "";
+                }
+                this.maxCount = this.count;
+                this.count = 0;
+                // console.log("Age filter");
+                // console.log(this.maxCount);
+                // console.log(this.count);
+                // console.log(this.filterResults);
+
+
+                if(this.maxCount == 0)
+                {
+                    this.filterResults[0] = "No Results Found";
+                }
+            }
         }
 
     }
@@ -231,7 +171,7 @@ class MapResult {
 
     }
     contactLoc() {
-        if (typeof this.animal.contact.address.address1 === "null" || typeof this.animal.contact.address.address1 === "undefined") {
+        if (typeof this.animal.contact.address.address1 == "null" || typeof this.animal.contact.address.address1 == "undefined") {
             console.log("No address provided");
         }
         else {
@@ -245,8 +185,8 @@ class MapResult {
 
         let geocodeFriend = mapboxSdk({ accessToken: "pk.eyJ1Ijoib25lcmVkc2hvZSIsImEiOiJjanVyN252Mzkzd2oxNGZwajRpenJjZHBoIn0.fxVWTe9SNmU1sXG-ZNSOEw" });
         geocodeFriend.forwardGeocode({
-            query: 'Paris, France',
-            countries: ['fr']
+            query: '' + this.animal.contact.address.address1 + ' ' + this.animal.contact.address.city + ',' + ' ' + this.animal.contact.address.state,
+            countries: ['' + this.animal.contact.address.country]
         })
             .send()
             .then(response => {
