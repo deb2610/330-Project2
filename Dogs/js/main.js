@@ -9,12 +9,18 @@ let currentGender;
 let maps;
 let wishlistCount;
 let loadingState;
-let user = "user1";
+let user;
 let wishlist;
+let tempID;
 
 function init() {
-
-    
+    if(!localStorage.getItem('userID'))
+    {
+        createUserID();
+        localStorage.setItem('userID',JSON.stringify(tempID));
+    }
+    user = localStorage.getItem('userID');
+    app.mounted();    
 }
 
 let speciesSelect = {
@@ -26,7 +32,6 @@ const app = new Vue({
         title: "Fetch!",
         results: [],
         num: 1,
-        contact: [],
         petSpecies: "Dog",
         petGender: "No",
         petAge: "No",
@@ -50,16 +55,11 @@ const app = new Vue({
             {
                 this.results[0].name = "No Results Found";
             }
-            let temp = [];
-            for (let i = 0; i < 20; i++) {
-                temp[i] = tempResults[i].contact;
-            }
-            this.contact = temp;
+            
         },
         map() {
             maps = new MapResult(this.results);
             maps.maps();
-            maps.contactLoc();
         },
         wishlistView() {
             // let path = 'pets/' + user +'/searchResults/'+0;
@@ -76,17 +76,7 @@ const app = new Vue({
                 gender: this.petGender,
                 age: this.petAge    
             });
-            // for (let i = 0; i < 20; i++) {
-            //     let path = 'pets/' + user +'/searchResults/'+i;
-            //     firebase.database().ref(path).set({ // over-writes old values
-            //         name: tempResults[i].name,
-            //         species: tempResults[i].species,
-            //         age: tempResults[i].age,
-            //         contact: tempResults[i].contact.address.address1,
-            //         status: tempResults[i].status,
-            //         url:  tempResults[i].url 
-            //     });
-            // }
+            
             path = 'pets/' + user +'/filteredResults/'+wishlistCount;
             firebase.database().ref(path).set({ // over-writes old values
                     name: this.filterResults[0].name,
@@ -96,20 +86,16 @@ const app = new Vue({
                     status: this.filterResults[0].status,
                     url:  this.filterResults[0].url 
                 });
-            //wishlistCount++;
         },
         petSearch() {
             let pf = new petfinder.Client({ apiKey: "3aPqyYam1lM9nzOX5yAUempjnMNDApTMvEwCr8VSwV4RX8j0OK", secret: "LzTl7yGbikkCB9Cx5yBr3vIfUyGl7bmCdLp3JAXT" });
             pf.animal.search()
                 .then(function (e) {
-                    //console.log("searchin");
                     tempResults = e.data.animals;
                     return tempResults;
                 })
                 .then(function () {
-                    //console.log(tempResults);
                     this.results = tempResults;
-
                 })
                 .then(() => {
 
@@ -166,8 +152,38 @@ const app = new Vue({
                     this.filterResults[0] = "No Results Found";
                 }
             }
+        },
+        mounted() {
+            
+            if(localStorage.getItem('fetchPetSpecies')) 
+                this.petSpecies = JSON.parse(localStorage.getItem('fetchPetSpecies'));
+            if(localStorage.getItem('fetchPetGender')) 
+                this.petGender = JSON.parse(localStorage.getItem('fetchPetGender'));
+            if(localStorage.getItem('fetchPetAge')) 
+                this.petAge = JSON.parse(localStorage.getItem('fetchPetAge'));
         }
 
+    },
+    
+    watch: {
+        petSpecies: {
+            handler() {
+                localStorage.setItem('fetchPetSpecies', JSON.stringify(this.petSpecies));                
+            },
+            deep: true
+        },
+        petGender: {
+            handler() {
+                localStorage.setItem('fetchPetGender', JSON.stringify(this.petGender));
+            },
+            deep: true
+        },
+        petAge: {
+            handler() {
+                localStorage.setItem('fetchPetAge', JSON.stringify(this.petAge));
+            },
+            deep: true
+        }
     }
 });
 let locator;
@@ -228,20 +244,7 @@ class MapResult {
           });
         
     }
-    contactLoc() {
-        // if (typeof this.animal.contact.address.address1 == "null" || typeof this.animal.contact.address.address1 == "undefined") {
-        //     console.log("No address provided");
-        // }
-        // else {
-        //     console.log(this.animal.contact.address.address1);
-        // }
-        // // console.log(this.animal.contact.address.city + ", " + this.animal.contact.address.state);
-        // // //console.log(this.animal.contact.email);
-        // // console.log(this.animal.contact.phone);
-        // // console.log(this.animal.url);
-
-        
-    }
+    
 }
 //firebase listener
 path = 'pets/' + user +'/filteredResults/';
@@ -261,9 +264,7 @@ function dataChanged(data) {
         wishlistCount = obj.length;
         wishlist = obj;
         this.wishlistVue = wishlist;
-        // this.wishpet = this.wishlistVue[0];
-        console.log(this.wishlistVue);
-        console.log(this.wishlistVue[0].name);
+        
       
 
     }
@@ -280,7 +281,10 @@ function firebaseError(error) {
     console.log(error);
 }
 
-
+function createUserID() {
+    let num = Math.random() * 200 + 1;
+    tempID = "user" + num;
+}
 
 
 
