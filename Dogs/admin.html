@@ -47,10 +47,13 @@
 <body>
     <div id="app">
         <h2>Users</h2>
-                <select class="paramOption">
-                    <option v-for="user in userList">{{user}}</option>
+                <select class="paramOption" v-model="currentUser">
+                    <option v-for="user in userList" v-bind:value="{ id: user, text: user }">{{ user }}</option>
                 </select>
                 <br>
+
+                {{currentUser.text}}
+
                 This is not yet working. Showing data for local Fetch! user
                 <br>
         <div class="dogGrid">

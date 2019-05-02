@@ -47,7 +47,8 @@ const app = new Vue({
         count: 0,
         maxCount: 0,
         mapLoading: false,
-        userList: []
+        userList: [],
+        currentUser: "user1"
 
     },
     methods: {
@@ -199,6 +200,12 @@ const app = new Vue({
                 localStorage.setItem('fetchPetAge', JSON.stringify(this.petAge));
             },
             deep: true
+        },
+        currentUser: {
+            handler() {
+
+            }
+
         }
     }
 });
