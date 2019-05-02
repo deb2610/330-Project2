@@ -12,7 +12,7 @@ let loadingState;
 let wishlist = [];
 let user;
 let tempID;
-
+let allUsers = [];
 function init() {
     if(!localStorage.getItem('userID'))
     {
@@ -23,7 +23,10 @@ function init() {
     //console.log("User: "+ user);
     //firebase listener
     path = 'pets/' + user +'/filteredResults/';
-    let test = firebase.database().ref(path).on("value", dataChanged, firebaseError);
+    firebase.database().ref(path).on("value", dataChanged, firebaseError);
+    path = 'pets/';
+    firebase.database().ref(path).on("value", getUsers, firebaseError);
+
     app.mounted();    
 }
 
@@ -43,7 +46,8 @@ const app = new Vue({
         wishlistVue: wishlist,
         count: 0,
         maxCount: 0,
-        mapLoading: false
+        mapLoading: false,
+        userList: []
 
     },
     methods: {
@@ -67,8 +71,9 @@ const app = new Vue({
             maps = new MapResult(this.results);
             maps.maps();
         },
-        wishlistView() {
+        firebasePull() {
             this.wishlistVue = wishlist;
+            this.userList = allUsers;
         },
         wishlistAdd() {
             if(!this.filterResults == false){
@@ -173,6 +178,7 @@ const app = new Vue({
                 this.petAge = JSON.parse(localStorage.getItem('fetchPetAge'));
         }
 
+
     },
     
     watch: {
@@ -276,19 +282,18 @@ function dataChanged(data) {
     if(obj){
         wishlistCount = obj.length;
         wishlist = obj;
-        this.wishlistVue = wishlist;
-        //console.log(wishlistCount);
-        app.wishlistView();
+        allUsers = Object.keys(obj);
+        app.firebasePull();
     }
+}
+function getUsers(data) {
+    //console.log("Data Loaded from Firebase");
+    let obj = data.val();
 
-    //let bigString = "";
-    // for (let key in obj) {   // use for..in to interate through object keys
-
-    //     let row = obj[key];
-    //     bigString += `<li>${row.userID} :  ${row.score}</li>`;
-    //     console.log(row);
-    // }
-    // lists = bigString;
+    if(obj){
+        allUsers = Object.keys(obj);
+        app.firebasePull();
+    }
 }
 function firebaseError(error) {
     console.log(error);
