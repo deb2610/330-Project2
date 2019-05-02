@@ -181,6 +181,19 @@ text-align: center;
 .about{
     padding: 1vh 10vw;
 }
+#profiles{
+    margin-top: 3vh;
+    width: 100%;
+    display: grid;
+    grid-template-columns: auto 10vw auto;
+}
+.personBox{
+    width: 25vw;
+}
+.profPic{
+    margin-bottom: 3vh;
+    width: 100%;
+}
 @media only screen 
 and (min-width : 320px) 
 and (max-width : 568px) { 
@@ -245,5 +258,13 @@ and (max-width : 568px) {
         padding-top: 5vh;
     
     }
-
+    #profiles{
+        margin-top: 3vh;
+        width: 100%;
+        display: grid;
+        grid-template-columns: auto;
+    }
+    .personBox{
+        width: 80vw;
+    }
 }
