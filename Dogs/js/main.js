@@ -9,14 +9,11 @@ let currentGender;
 let maps;
 let wishlistCount;
 let loadingState;
-<<<<<<< HEAD
 let user = "user1";
 let wishlist = [];
-=======
 let user;
 let wishlist;
 let tempID;
->>>>>>> master
 
 function init() {
     if(!localStorage.getItem('userID'))
@@ -272,14 +269,8 @@ function dataChanged(data) {
     if(obj){
         wishlistCount = obj.length;
         wishlist = obj;
-<<<<<<< HEAD
         app.wishlistView();
-=======
         this.wishlistVue = wishlist;
-        
-      
-
->>>>>>> master
     }
 
     //let bigString = "";
