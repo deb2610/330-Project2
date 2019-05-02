@@ -88,19 +88,19 @@
 
                 </div>
                 <div id='map'></div>
-                <button class="btn" type="submit" @click="wishlistAdd"><i class="fas fa-star"></i>  Wishlist</button>
-                <!-- <div class="wishBox" v-for="pet in wishlistVue">
-                    <p class="pLabel">Name: <span class="pResult">{{pet.name}}</span></p>
-                    <p class="pLabel">Species: <span class="pResult">{{pet.species}}</span></p>
-                    <p class="pLabel">Age: <span class="pResult">{{pet.age}}</span></p>
-                    <p class="pLabel">Contact info: <span class="pResult">{{item.contact.email}}</span></p>
-                    <p class="pLabel">Status: <span class="pResult">{{pet.status}}</span></p>
-                    <hr>
-
-                </div> -->
-                <ul>
-                    <li v-for="pet in wishpet">yeet {{pet.name}}</li>
-                </ul>
+                <button class="btn wishbtn" type="submit" @click="wishlistAdd"><i class="fas fa-star"></i>  Add to Wishlist</button>
+                <!-- <button class="btn" type="submit" @click="wishlistView"><i class="fas fa-dog"></i>  View Wishlist</button> -->
+                <hr>
+                <h2 class="">My Wishlist!</h2>
+                <div class="dogGrid">
+                    <div class="wishBox" v-for="pet in wishlistVue">
+                        <p class="wLabel"><span>{{pet.name}}</span><span v-if="pet.species == 'Dog'"><i class="fas fa-dog iconpad"></i></span><span v-else><i class="fas fa-cat iconpad"></i></span></p>
+                        <p class="wishlistProp">Age: <span>{{pet.age}}</span></p>
+                        <!-- <p class="pLabel">Contact info: <span class="pResult">{{item.contact.email}}</span></p> -->
+                        <p class="wishlistProp">Status: <span>{{pet.status}}</span></p>
+                        <p class="wishlistProp"><span><a :href="pet.url">Link</a></span></p>
+                    </div>
+                </div>
                 <!-- style='width: 640px; height: 480px;' -->
             </div>
             <div class="footer">

@@ -10,7 +10,7 @@ let maps;
 let wishlistCount;
 let loadingState;
 let user = "user1";
-let wishlist;
+let wishlist = [];
 
 function init() {
 
@@ -32,7 +32,6 @@ const app = new Vue({
         petAge: "No",
         filterResults: [],
         wishlistVue: wishlist,
-        wishpet: {},
         count: 0,
         maxCount: 0
     },
@@ -63,6 +62,7 @@ const app = new Vue({
         },
         wishlistView() {
             // let path = 'pets/' + user +'/searchResults/'+0;
+            this.wishlistVue = wishlist;
         },
         wishlistAdd() {
             //let searchButton = document.querySelector(".btn");
@@ -257,7 +257,11 @@ class MapResult {
 }
 //firebase listener
 path = 'pets/' + user +'/filteredResults/';
-firebase.database().ref(path).on("value", dataChanged, firebaseError);
+let test = firebase.database().ref(path).on("value", dataChanged, firebaseError);
+console.log("3 " + this.wishpet);
+console.log(test);
+
+
 
 function addMarker(latitude, longitude, title) {
     let position = { lat: latitude, lng: longitude };
@@ -272,13 +276,9 @@ function dataChanged(data) {
     if(obj){
         wishlistCount = obj.length;
         wishlist = obj;
-        this.wishlistVue = wishlist;
-        // this.wishpet = this.wishlistVue[0];
-        console.log(this.wishlistVue);
-        console.log(this.wishlistVue[0].name);
-
-
+        app.wishlistView();
     }
+
     //let bigString = "";
     // for (let key in obj) {   // use for..in to interate through object keys
 
