@@ -88,7 +88,7 @@
 
                 </div>
                 <div id='map'></div>
-                <button class="btn" type="submit" @click="wishlistAdd"><i class="fas fa-star"></i>  Wishlist</button>
+                <button class="btn" type="submit" @click="wishlistAdd"><i class="fas fa-star"></i> Wishlist</button>
                 <!-- <div class="wishBox" v-for="pet in wishlistVue">
                     <p class="pLabel">Name: <span class="pResult">{{pet.name}}</span></p>
                     <p class="pLabel">Species: <span class="pResult">{{pet.species}}</span></p>
@@ -98,8 +98,9 @@
                     <hr>
 
                 </div> -->
-                <ul>
-                    <li v-for="pet in wishpet">yeet {{pet.name}}</li>
+                <ul id="tester">
+                    <li>yeet</li>
+                    <li  v-for="pet in wishlistVue">{{pet.name}}</li>
                 </ul>
                 <!-- style='width: 640px; height: 480px;' -->
             </div>

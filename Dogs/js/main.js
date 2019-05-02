@@ -102,12 +102,12 @@ const app = new Vue({
             let pf = new petfinder.Client({ apiKey: "3aPqyYam1lM9nzOX5yAUempjnMNDApTMvEwCr8VSwV4RX8j0OK", secret: "LzTl7yGbikkCB9Cx5yBr3vIfUyGl7bmCdLp3JAXT" });
             pf.animal.search()
                 .then(function (e) {
-                    console.log("searchin");
+                    //console.log("searchin");
                     tempResults = e.data.animals;
                     return tempResults;
                 })
                 .then(function () {
-                    console.log(tempResults);
+                    //console.log(tempResults);
                     this.results = tempResults;
 
                 })
@@ -130,10 +130,6 @@ const app = new Vue({
             }
             this.maxCount = this.count;
             this.count = 0;
-            // console.log("Species filter");
-            // console.log(this.maxCount);
-            // console.log(this.count);
-            // console.log(this.filterResults);
 
             if (this.petGender != "No") {
                 for (let i = 0; i < this.maxCount; i++) {
@@ -148,10 +144,6 @@ const app = new Vue({
                 }
                 this.maxCount = this.count;
                 this.count = 0;
-                // console.log("Gender filter");
-                // console.log(this.maxCount);
-                // console.log(this.count);
-                // console.log(this.filterResults);
 
             }
             if (this.petAge != "No") {
@@ -167,10 +159,6 @@ const app = new Vue({
                 }
                 this.maxCount = this.count;
                 this.count = 0;
-                // console.log("Age filter");
-                // console.log(this.maxCount);
-                // console.log(this.count);
-                // console.log(this.filterResults);
 
 
                 if(this.maxCount == 0)
@@ -182,15 +170,14 @@ const app = new Vue({
 
     }
 });
-
+let locator;
 class MapResult {
     constructor(animals) {
         this.animal = animals[0];
-        this.address = this.animal.contact.address.city + ", " + this.animal.contact.address.state;
+        this.address = this.animal.contact.address.city + " " + this.animal.contact.address.state;
     }
     maps() {
-        console.log("MAP");
-
+        locator = this.address;
         mapboxgl.accessToken = 'pk.eyJ1Ijoib25lcmVkc2hvZSIsImEiOiJjanVyN252Mzkzd2oxNGZwajRpenJjZHBoIn0.fxVWTe9SNmU1sXG-ZNSOEw';
         var map = new mapboxgl.Map({
             container: 'map',
@@ -205,20 +192,22 @@ class MapResult {
             accessToken: mapboxgl.accessToken, // Set the access token
             mapboxgl: mapboxgl, // Set the mapbox-gl instance
             marker: false, 
-            placeholder: "Please Hit Enter"// Do not use the default marker style
+            placeholder: "Search: " + this.address// Do not use the default marker style
              // Placeholder text for the search bar
             // Coordinates of UC Berkeley
           });
         map.addControl(geocoder);
         map.on('load', function() {
+            geocoder.query('\'' + locator + '\'');
             map.addSource('single-point', {
               type: 'geojson',
               data: {
                 type: 'FeatureCollection',
                 features: []
-              }
+              },
+              
             });
-          
+            
             map.addLayer({
               id: 'point',
               source: 'single-point',
@@ -240,17 +229,16 @@ class MapResult {
         
     }
     contactLoc() {
-        if (typeof this.animal.contact.address.address1 == "null" || typeof this.animal.contact.address.address1 == "undefined") {
-            console.log("No address provided");
-        }
-        else {
-            console.log(this.animal.contact.address.address1);
-        }
-        console.log("address");
-        console.log(this.animal.contact.address.city + ", " + this.animal.contact.address.state);
-        //console.log(this.animal.contact.email);
-        console.log(this.animal.contact.phone);
-        console.log(this.animal.url);
+        // if (typeof this.animal.contact.address.address1 == "null" || typeof this.animal.contact.address.address1 == "undefined") {
+        //     console.log("No address provided");
+        // }
+        // else {
+        //     console.log(this.animal.contact.address.address1);
+        // }
+        // // console.log(this.animal.contact.address.city + ", " + this.animal.contact.address.state);
+        // // //console.log(this.animal.contact.email);
+        // // console.log(this.animal.contact.phone);
+        // // console.log(this.animal.url);
 
         
     }
@@ -276,7 +264,7 @@ function dataChanged(data) {
         // this.wishpet = this.wishlistVue[0];
         console.log(this.wishlistVue);
         console.log(this.wishlistVue[0].name);
-
+      
 
     }
     //let bigString = "";
@@ -291,6 +279,8 @@ function dataChanged(data) {
 function firebaseError(error) {
     console.log(error);
 }
+
+
 
 
 
