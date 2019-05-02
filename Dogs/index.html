@@ -38,6 +38,7 @@
 
     <!-- CSS & JS -->
     <link href="https://fonts.googleapis.com/css?family=Bevan" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
     <link href="css/main.css" rel="stylesheet">
 
 </head>
@@ -47,7 +48,7 @@
         <div class="gridContainer">
             <div class="top">
                 <img id="logo" src="images/doggo.png" alt="logo">
-                <div>
+                <div id="logotext">
                     <h1 class="title">{{ title }}</h1>
                     <p class="subtitle">Find a friend!</p>
                 </div>
@@ -73,10 +74,10 @@
                     <option value="No">No Preference</option>
                 </select>
 
-                <button class="btn" type="submit" @click="search">Search</button>
+                <button class="btn" type="submit" @click="search"><i class="fas fa-search"></i>   Search</button>
                 <!-- <button class="btn" type="submit" @click="display">display</button> -->
                 <hr>
-                <div><img src="images/loading.gif" /></div>
+                <img id="loading" src="images/loading.gif" />
                 <div class="dogBox" v-for="item in results.slice(0,1)">
                     <p class="pLabel">Name: <span class="pResult">{{item.name}}</span></p>
                     <p class="pLabel">Species: <span class="pResult">{{item.species}}</span></p>
@@ -86,6 +87,19 @@
 
                 </div>
                 <div id='map'></div>
+                <button class="btn" type="submit" @click="wishlistAdd"><i class="fas fa-star"></i>  Wishlist</button>
+                <!-- <div class="wishBox" v-for="pet in wishlistVue">
+                    <p class="pLabel">Name: <span class="pResult">{{pet.name}}</span></p>
+                    <p class="pLabel">Species: <span class="pResult">{{pet.species}}</span></p>
+                    <p class="pLabel">Age: <span class="pResult">{{pet.age}}</span></p>
+                    <p class="pLabel">Contact info: <span class="pResult">{{item.contact.email}}</span></p>
+                    <p class="pLabel">Status: <span class="pResult">{{pet.status}}</span></p>
+                    <hr>
+
+                </div> -->
+                <ul>
+                    <li v-for="pet in wishpet">yeet {{pet.name}}</li>
+                </ul>
                 <!-- style='width: 640px; height: 480px;' -->
             </div>
             <div class="footer">

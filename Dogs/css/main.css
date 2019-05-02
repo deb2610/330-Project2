@@ -126,3 +126,65 @@ button {
 .pResult{
     color: var(--text-color-dark);
 }
+#loading{
+    width: 10%;
+    margin: 1vh 35vw;
+}
+
+@media only screen 
+and (min-width : 320px) 
+and (max-width : 568px) { 
+    /* Phones */ 
+    .gridContainer{
+        grid-template-rows: 10vh auto 3vh;
+        
+    }
+    .top{
+        width: 100vw;
+        padding: 1vh 0vw;
+    }
+    #logotext{
+        display: none;
+    }
+    .subtitle{
+        display: none;
+    }
+    .content{
+        width: 100vw;
+        margin: 0;
+    }
+    .footer{
+        width: 100vw;
+        font-size: 9pt;
+    }
+    .paramOption{
+        width: 60%;
+        margin-left: 20vw;
+        padding-top: .5vh;
+        padding-bottom: .5vh;
+
+
+    }
+    .btn{
+        width: 30vw;
+        margin: 2vh 35vw;
+    }
+    .paramLabel{
+        font-size: 13pt;
+
+    }
+    .dogBox{
+        max-width: 100vw;
+        margin: 0vh 0vw;
+        padding: 1vh 2vw;
+
+    }
+    #map{
+        width: 100vw;
+        height: 70vh;
+        margin: 0vh 0vw;
+
+    }
+    
+
+}

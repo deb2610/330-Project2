@@ -7,7 +7,10 @@ let currentSpecies;
 let currentAge;
 let currentGender;
 let maps;
-
+let wishlistCount;
+let loadingState;
+let user = "user1";
+let wishlist;
 
 function init() {
 
@@ -28,6 +31,8 @@ const app = new Vue({
         petGender: "No",
         petAge: "No",
         filterResults: [],
+        wishlistVue: wishlist,
+        wishpet: {},
         count: 0,
         maxCount: 0
     },
@@ -57,10 +62,41 @@ const app = new Vue({
             maps.contactLoc();
         },
         wishlistView() {
-
+            // let path = 'pets/' + user +'/searchResults/'+0;
         },
         wishlistAdd() {
+            //let searchButton = document.querySelector(".btn");
+            if(!wishlistCount){
+                wishlistCount = 0;
+            }
 
+            let path = 'pets/' + user +'/searchParams';
+            firebase.database().ref(path).set({ // over-writes old values
+                type: this.petSpecies,
+                gender: this.petGender,
+                age: this.petAge    
+            });
+            // for (let i = 0; i < 20; i++) {
+            //     let path = 'pets/' + user +'/searchResults/'+i;
+            //     firebase.database().ref(path).set({ // over-writes old values
+            //         name: tempResults[i].name,
+            //         species: tempResults[i].species,
+            //         age: tempResults[i].age,
+            //         contact: tempResults[i].contact.address.address1,
+            //         status: tempResults[i].status,
+            //         url:  tempResults[i].url 
+            //     });
+            // }
+            path = 'pets/' + user +'/filteredResults/'+wishlistCount;
+            firebase.database().ref(path).set({ // over-writes old values
+                    name: this.filterResults[0].name,
+                    species: this.filterResults[0].species,
+                    age: this.filterResults[0].age,
+                    contact: this.filterResults[0].contact.address.address1,
+                    status: this.filterResults[0].status,
+                    url:  this.filterResults[0].url 
+                });
+            //wishlistCount++;
         },
         petSearch() {
             let pf = new petfinder.Client({ apiKey: "3aPqyYam1lM9nzOX5yAUempjnMNDApTMvEwCr8VSwV4RX8j0OK", secret: "LzTl7yGbikkCB9Cx5yBr3vIfUyGl7bmCdLp3JAXT" });
@@ -179,7 +215,7 @@ class MapResult {
         }
         console.log("address");
         console.log(this.animal.contact.address.city + ", " + this.animal.contact.address.state);
-        console.log(this.animal.contact.email);
+        //console.log(this.animal.contact.email);
         console.log(this.animal.contact.phone);
         console.log(this.animal.url);
 
@@ -195,6 +231,9 @@ class MapResult {
             });
     }
 }
+//firebase listener
+path = 'pets/' + user +'/filteredResults/';
+firebase.database().ref(path).on("value", dataChanged, firebaseError);
 
 function addMarker(latitude, longitude, title) {
     let position = { lat: latitude, lng: longitude };
@@ -204,7 +243,30 @@ function addMarker(latitude, longitude, title) {
         makeInfoWindow(this.position, this.title);
     });
 }
+function dataChanged(data) {
+    let obj = data.val();
+    if(obj){
+        wishlistCount = obj.length;
+        wishlist = obj;
+        this.wishlistVue = wishlist;
+        // this.wishpet = this.wishlistVue[0];
+        console.log(this.wishlistVue);
+        console.log(this.wishlistVue[0].name);
 
+
+    }
+    //let bigString = "";
+    // for (let key in obj) {   // use for..in to interate through object keys
+
+    //     let row = obj[key];
+    //     bigString += `<li>${row.userID} :  ${row.score}</li>`;
+    //     console.log(row);
+    // }
+    // lists = bigString;
+}
+function firebaseError(error) {
+    console.log(error);
+}
 
 
 
