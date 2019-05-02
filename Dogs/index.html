@@ -78,9 +78,12 @@
                 <button class="btn" type="submit" @click="search"><i class="fas fa-search"></i>   Search</button>
                 <!-- <button class="btn" type="submit" @click="display">display</button> -->
                 <hr>
+                
                 <div v-if="mapLoading"><img id="loading" src="images/loading.gif" /></div>
+                
                 <div class="dogBox" v-for="item in results.slice(0,1)">
                     <div v-if="item[0] != 'No Results Found' ">
+                        <img :src="currentPic">
                         <p class="pLabel">Name: <span class="pResult">{{item.name}}</span></p>
                         <p class="pLabel">Species: <span class="pResult">{{item.species}}</span></p>
                         <p class="pLabel">Age: <span class="pResult">{{item.age}}</span></p>

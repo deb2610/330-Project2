@@ -48,7 +48,8 @@ const app = new Vue({
         maxCount: 0,
         mapLoading: false,
         userList: [],
-        currentUser: "user1"
+        currentUser: "user1",
+        currentPic: "No Photo to Show"
 
     },
     methods: {
@@ -65,7 +66,15 @@ const app = new Vue({
             if(this.maxCount == 0)
             {
                 this.results[0].name = "No Results Found";
+                this.results[0].species = "";
+                this.results[0].gender = "";
+                this.results[0].age = "";
+                this.results[0].contact = "";
+                this.results[0].status = "unavailable";
+                this.results[0].url = "";
+                this.results[0].photos = "";
             }
+            this.currentPic = this.results[0].photos[0].medium;
             
         },
         map() {
@@ -95,7 +104,8 @@ const app = new Vue({
                         age: this.filterResults[0].age,
                         contact: this.filterResults[0].contact.address.address1,
                         status: this.filterResults[0].status,
-                        url:  this.filterResults[0].url 
+                        url:  this.filterResults[0].url
+
                     });
             }
             else{
@@ -294,7 +304,6 @@ function dataChanged(data) {
     }
 }
 function getUsers(data) {
-    //console.log("Data Loaded from Firebase");
     let obj = data.val();
 
     if(obj){
