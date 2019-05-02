@@ -9,10 +9,8 @@ let currentGender;
 let maps;
 let wishlistCount;
 let loadingState;
-let user = "user1";
 let wishlist = [];
 let user;
-let wishlist;
 let tempID;
 
 function init() {
@@ -288,7 +286,7 @@ function firebaseError(error) {
 
 function createUserID() {
     let num = Math.random() * 200 + 1;
-    tempID = "user" + num;
+    tempID = "user" + Math.round(num);
 }
 
 
