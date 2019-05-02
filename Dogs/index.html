@@ -78,13 +78,18 @@
                 <button class="btn" type="submit" @click="search"><i class="fas fa-search"></i>   Search</button>
                 <!-- <button class="btn" type="submit" @click="display">display</button> -->
                 <hr>
-                <img id="loading" src="images/loading.gif" />
+                <div v-if="mapLoading"><img id="loading" src="images/loading.gif" /></div>
                 <div class="dogBox" v-for="item in results.slice(0,1)">
-                    <p class="pLabel">Name: <span class="pResult">{{item.name}}</span></p>
-                    <p class="pLabel">Species: <span class="pResult">{{item.species}}</span></p>
-                    <p class="pLabel">Age: <span class="pResult">{{item.age}}</span></p>
-                    <p class="pLabel">Contact info: <span class="pResult">{{item.contact.email}}</span></p>
-                    <p class="pLabel">Status: <span class="pResult">{{item.status}}</span></p>
+                    <div v-if="item[0] != 'No Results Found' ">
+                        <p class="pLabel">Name: <span class="pResult">{{item.name}}</span></p>
+                        <p class="pLabel">Species: <span class="pResult">{{item.species}}</span></p>
+                        <p class="pLabel">Age: <span class="pResult">{{item.age}}</span></p>
+                        <p class="pLabel">Contact info: <span class="pResult">{{item.contact.email}}</span></p>
+                        <p class="pLabel">Status: <span class="pResult">{{item.status}}</span></p>
+                    </div>
+                    <div v-else>
+                        ISSUE
+                    </div>
 
                 </div>
                 <div id='map'></div>
@@ -99,6 +104,16 @@
                         <!-- <p class="pLabel">Contact info: <span class="pResult">{{item.contact.email}}</span></p> -->
                         <p class="wishlistProp">Status: <span>{{pet.status}}</span></p>
                         <p class="wishlistProp"><span><a :href="pet.url">Link</a></span></p>
+                    </div>
+                </div>
+                <hr>
+                <div class="about">
+                    <h2>About Fetch!</h2>
+                    <p>Fetch! is a lightweight web app that utilized The PetFinder API and Mapbox to match you with a perfect adoptable cat or dog. The initial idea for the app was to make a "Tinder for Dogs." However after some research we found that Petfinder's API was able to offer certain information about pets, making the dating profile setup more challenging to achieve</p>
+                    </br>
+                    <p>Fetch was created by Declan Behan and Leah Bernstein, two Game Design and Development sudents are RIT.</p>
+                    <div id="profiles">
+                        
                     </div>
                 </div>
                 <!-- style='width: 640px; height: 480px;' -->

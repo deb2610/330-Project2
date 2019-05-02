@@ -20,6 +20,10 @@ function init() {
         localStorage.setItem('userID',JSON.stringify(tempID));
     }
     user = localStorage.getItem('userID');
+    //console.log("User: "+ user);
+    //firebase listener
+    path = 'pets/' + user +'/filteredResults/';
+    let test = firebase.database().ref(path).on("value", dataChanged, firebaseError);
     app.mounted();    
 }
 
@@ -38,11 +42,14 @@ const app = new Vue({
         filterResults: [],
         wishlistVue: wishlist,
         count: 0,
-        maxCount: 0
+        maxCount: 0,
+        mapLoading: false
+
     },
     methods: {
 
         search() {
+            this.mapLoading = true;
             this.filterResults = [];
             this.maxCount = 20;
             this.count = 0;
@@ -61,31 +68,34 @@ const app = new Vue({
             maps.maps();
         },
         wishlistView() {
-            // let path = 'pets/' + user +'/searchResults/'+0;
             this.wishlistVue = wishlist;
         },
         wishlistAdd() {
-            //let searchButton = document.querySelector(".btn");
-            if(!wishlistCount){
-                wishlistCount = 0;
-            }
-
-            let path = 'pets/' + user +'/searchParams';
-            firebase.database().ref(path).set({ // over-writes old values
-                type: this.petSpecies,
-                gender: this.petGender,
-                age: this.petAge    
-            });
-            
-            path = 'pets/' + user +'/filteredResults/'+wishlistCount;
-            firebase.database().ref(path).set({ // over-writes old values
-                    name: this.filterResults[0].name,
-                    species: this.filterResults[0].species,
-                    age: this.filterResults[0].age,
-                    contact: this.filterResults[0].contact.address.address1,
-                    status: this.filterResults[0].status,
-                    url:  this.filterResults[0].url 
+            if(!this.filterResults == false){
+                if(!wishlistCount){
+                    wishlistCount = 0;
+                }
+                let path = 'pets/' + user +'/searchParams';
+                firebase.database().ref(path).set({ // over-writes old values
+                    type: this.petSpecies,
+                    gender: this.petGender,
+                    age: this.petAge    
                 });
+                
+                path = 'pets/' + user +'/filteredResults/'+wishlistCount;
+                firebase.database().ref(path).set({ // over-writes old values
+                        name: this.filterResults[0].name,
+                        species: this.filterResults[0].species,
+                        age: this.filterResults[0].age,
+                        contact: this.filterResults[0].contact.address.address1,
+                        status: this.filterResults[0].status,
+                        url:  this.filterResults[0].url 
+                    });
+            }
+            else{
+                console.log("Wishlist Error: Nothing to Add");
+
+            }
         },
         petSearch() {
             let pf = new petfinder.Client({ apiKey: "3aPqyYam1lM9nzOX5yAUempjnMNDApTMvEwCr8VSwV4RX8j0OK", secret: "LzTl7yGbikkCB9Cx5yBr3vIfUyGl7bmCdLp3JAXT" });
@@ -214,6 +224,9 @@ class MapResult {
           });
         map.addControl(geocoder);
         map.on('load', function() {
+            //gif thing
+            app.mapLoading = false;
+            //real code
             geocoder.query('\'' + locator + '\'');
             map.addSource('single-point', {
               type: 'geojson',
@@ -246,12 +259,6 @@ class MapResult {
     }
     
 }
-//firebase listener
-path = 'pets/' + user +'/filteredResults/';
-let test = firebase.database().ref(path).on("value", dataChanged, firebaseError);
-console.log("3 " + this.wishpet);
-console.log(test);
-
 
 
 function addMarker(latitude, longitude, title) {
@@ -263,12 +270,15 @@ function addMarker(latitude, longitude, title) {
     });
 }
 function dataChanged(data) {
+    console.log("Data Loaded from Firebase");
     let obj = data.val();
+
     if(obj){
         wishlistCount = obj.length;
         wishlist = obj;
-        app.wishlistView();
         this.wishlistVue = wishlist;
+        //console.log(wishlistCount);
+        app.wishlistView();
     }
 
     //let bigString = "";
@@ -286,7 +296,7 @@ function firebaseError(error) {
 
 function createUserID() {
     let num = Math.random() * 200 + 1;
-    tempID = "user" + Math.round(num);
+    tempID = Math.round(num);
 }
 
 
