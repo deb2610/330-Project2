@@ -79,7 +79,8 @@
                 <!-- <button class="btn" type="submit" @click="display">display</button> -->
                 <hr>
                 
-                <div v-if="mapLoading"><img id="loading" src="images/loading.gif" /></div>
+                <div v-if="mapLoading"><img id="loading" src="images/loading.gif" />
+                <br><p class="pLabel">If the spinner continues to go without stopping in a reasonable time-frame, it's possible that no friends were found<br>Please refine your search and try again, or wait a few minutes in case the desired friend cycles back in</p></div>
                 
                 <div class="dogBox" v-for="item in results.slice(0,1)">
                     <div v-if="item[0] != 'No Results Found' ">
