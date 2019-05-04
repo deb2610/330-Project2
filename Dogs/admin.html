@@ -52,12 +52,10 @@
                 </select>
                 <br>
 
-                {{currentUser.text}}
-
                 This is not yet working. Showing data for local Fetch! user
                 <br>
         <div class="dogGrid">
-                <div class="wishBox" v-for="pet in wishlistVue">
+                <div class="wishBox" v-for="pet in wishlistAdmin">
                     <p class="wLabel"><span>{{pet.name}}</span><span v-if="pet.species == 'Dog'"><i class="fas fa-dog iconpad"></i></span><span v-else><i class="fas fa-cat iconpad"></i></span></p>
                     <p class="wishlistProp">Age: <span>{{pet.age}}</span></p>
                     <!-- <p class="pLabel">Contact info: <span class="pResult">{{item.contact.email}}</span></p> -->

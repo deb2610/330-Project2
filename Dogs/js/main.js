@@ -10,6 +10,8 @@ let maps;
 let wishlistCount;
 let loadingState;
 let wishlist = [];
+let wishlistAdminLocal = [];
+let currentUserLocal = [];
 let user;
 let tempID;
 let allUsers = [];
@@ -44,6 +46,7 @@ const app = new Vue({
         petAge: "No",
         filterResults: [],
         wishlistVue: wishlist,
+        wishlistAdmin: [],
         count: 0,
         maxCount: 0,
         mapLoading: false,
@@ -74,7 +77,10 @@ const app = new Vue({
         },
         firebasePull() {
             this.wishlistVue = wishlist;
+            this.wishlistAdmin = wishlistAdminLocal;
             this.userList = allUsers;
+            this.currentUser = currentUserLocal;
+            
         },
         wishlistAdd() {
             if(!this.filterResults == false){
@@ -203,7 +209,13 @@ const app = new Vue({
         },
         currentUser: {
             handler() {
-
+                //if(currentUser){
+                    currentUserLocal = this.currentUser.id;
+                    console.log(currentUserLocal);
+                    path = 'pets/' + currentUserLocal +'/filteredResults/';
+                    console.log(path);
+                    firebase.database().ref(path).on("value", setAdminPage, firebaseError);
+                //}
             }
 
         }
@@ -290,6 +302,16 @@ function dataChanged(data) {
         wishlistCount = obj.length;
         wishlist = obj;
         allUsers = Object.keys(obj);
+        app.firebasePull();
+    }
+}
+function setAdminPage(data) {
+    console.log("Data Loaded from Firebase");
+    let obj = data.val();
+
+    if(obj){
+        wishlistAdminLocal = obj;
+        //allUsers = Object.keys(obj);
         app.firebasePull();
     }
 }

@@ -89,6 +89,9 @@ hr{
     width: 80%;
     border: 1px solid var(--text-color-dark);
 }
+.afterwishlistHR{
+    margin-bottom: 3vh;
+}
 a{
     text-decoration: none;
     color: #F7882f;
@@ -110,9 +113,12 @@ button {
 .dogBox{
     
     background-color: white;
-    max-width: 40vw;
-    margin-left: 20vw;
+    max-width: 70vw;
+    margin: 3vh 10vw;
+    margin-bottom: .25%;
     font-size: 1em;
+    box-shadow: 0 2px 2px grey;
+    z-index: 1;
 
 }
 .dogGrid{
@@ -137,10 +143,11 @@ margin: 0 30vw;
 width: 20vw;
 }
 #map{
-    width: 40vw;
+    width: 60vw;
     height: 40vw;
-    margin-left: 20vw;
-
+    margin: 0 10vw;
+    margin-bottom: 3vh;
+    z-index: 0;
 }
 .paramLabel{
     font-size: 16pt;
@@ -179,7 +186,11 @@ text-align: center;
     margin: 1vh 35vw;
 }
 .about{
-    padding: 1vh 10vw;
+    padding: 3vh 10vw;
+    background-color: white;
+    box-shadow: 0px 3px 5px  grey;
+
+
 }
 #profiles{
     margin-top: 3vh;
