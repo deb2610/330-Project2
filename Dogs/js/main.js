@@ -51,7 +51,10 @@ const app = new Vue({
         maxCount: 0,
         mapLoading: false,
         userList: [],
-        currentUser: "user1",
+        currentUser: {
+            id: "",
+            text: ""
+        },
         currentPic: "No Photo to Show"
 
     },
@@ -219,13 +222,13 @@ const app = new Vue({
         },
         currentUser: {
             handler() {
-                //if(currentUser){
+                if(this.currentUser){
                     currentUserLocal = this.currentUser.id;
-                    console.log(currentUserLocal);
+                    //console.log(currentUserLocal);
                     path = 'pets/' + currentUserLocal +'/filteredResults/';
-                    console.log(path);
+                    // /console.log(path);
                     firebase.database().ref(path).on("value", setAdminPage, firebaseError);
-                //}
+                }
             }
 
         }
@@ -305,7 +308,7 @@ function addMarker(latitude, longitude, title) {
     });
 }
 function dataChanged(data) {
-    console.log("Data Loaded from Firebase");
+    //console.log("Data Loaded from Firebase");
     let obj = data.val();
 
     if(obj){
@@ -316,7 +319,7 @@ function dataChanged(data) {
     }
 }
 function setAdminPage(data) {
-    console.log("Data Loaded from Firebase");
+    //console.log("Data Loaded from Firebase");
     let obj = data.val();
 
     if(obj){
