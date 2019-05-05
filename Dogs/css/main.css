@@ -36,12 +36,23 @@
     width: 100vw;
 
 }
+.top-doc{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    /* padding: .5vh 1vw; */
+    font-family: var(--font-main);
+    text-align: center;
+    background-color: var(--palette-3);
+    width: 100vw;
+
+}
 .content{
     background-color: var(--palette-1);
     width: 80vw;
     margin-left: 10vw;
     padding-top: 1vh;
-    padding-bottom: 5vh;
+    /* padding-bottom: 5vh; */
     height: auto;
     
     
@@ -58,9 +69,36 @@
 body{
     background-color: var(--palette-0);
 }
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+    margin: 3vh 0vw;
+  }
+  
+  td, th {
+    border: 1px solid #b39d3d;
+    text-align: left;
+    padding: 8px;
+  }
+  th{
+      text-align: center;
+  }
+  tr:nth-child(even) {
+    background-color: #d6cd9b;
+  }
+  .tableRight{
+      text-align: right;
+  }
 #logo{
     height: 90%;
     margin: 0vw 1vw;
+    /* padding: 2vh 0vw; */
+    
+}
+#logo-doc{
+    height: 90%;
+    margin: 0vw 3vw;
     /* padding: 2vh 0vw; */
     
 }
@@ -82,6 +120,12 @@ h1{
 h2{
     text-align: center;
     margin: 1vh 0vw;
+}
+h3{
+    color: white;
+}
+h4{
+    font-size: 16pt;
 }
 hr{
     color: var(--text-color-dark);
@@ -124,12 +168,6 @@ button {
     z-index: 1;
 
 }
-#dogPic{
-    /* width: 80%; */
-}
-#dogInfo{
-    
-}
 .loadingWarning{
     background-color: var(--palette-3);
     max-width: 70vw;
@@ -154,13 +192,17 @@ button {
     font-size: 1em;
     margin: 1%;
     box-shadow: 0 1px 2px  grey;
-
-
 }
 .wishbtn{
 margin: 0 30vw;
 width: 20vw;
 }
+.docbtn{
+    font-size: 14pt;
+    margin: 3vh 20vw;
+    width: 40vw;
+    height: 6vh;
+    }
 #map{
     width: 60vw;
     height: 40vw;
@@ -224,6 +266,19 @@ text-align: center;
     margin-bottom: 3vh;
     width: 100%;
 }
+.backbutton{
+    font-family: var(--font-main);
+    border-radius: 15px;
+    border: 3px solid white;
+    padding: 1vh;
+    cursor: pointer;
+    text-decoration: none;
+    color: white;
+    margin: 0vh 3vw;
+}
+.backbutton:visited{
+    color:white;
+}
 @media only screen 
 and (min-width : 320px) 
 and (max-width : 568px) { 
@@ -245,6 +300,7 @@ and (max-width : 568px) {
     .content{
         width: 100vw;
         margin: 0;
+        padding-bottom: 0;
     }
     .footer{
         width: 100vw;
@@ -287,6 +343,17 @@ and (max-width : 568px) {
         padding: 20% 0;
         padding-top: 5vh;
     
+    }
+    .docbtn{
+        font-size: 14pt;
+        margin: 3vh 15vw;
+        width: 70vw;
+        height: 8vh;
+    }
+    .loadingWarning{
+        max-width: 100vw;
+        margin: 0%;
+        padding: 2vh 3vw;
     }
     #profiles{
         margin-top: 3vh;
