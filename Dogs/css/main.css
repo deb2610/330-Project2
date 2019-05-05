@@ -111,7 +111,10 @@ button {
     border-radius: 12px;
   }
 .dogBox{
-    
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-evenly;
+    align-items: center;
     background-color: white;
     max-width: 70vw;
     margin: 3vh 10vw;
@@ -120,6 +123,22 @@ button {
     box-shadow: 0 2px 2px grey;
     z-index: 1;
 
+}
+#dogPic{
+    /* width: 80%; */
+}
+#dogInfo{
+    
+}
+.loadingWarning{
+    background-color: var(--palette-3);
+    max-width: 70vw;
+    margin: 3vh 10vw;
+    margin-bottom: .25%;
+    font-size: 1em;
+    padding: 1vw;
+    box-shadow: 0 2px 2px grey;
+    z-index: 1;
 }
 .dogGrid{
     display: grid;
