@@ -34,9 +34,9 @@
         <link rel='stylesheet' href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.2.0/mapbox-gl-geocoder.css' type='text/css' />
         <!--PetFinder API-->
         <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-        <script
-            src="https://unpkg.com/@petfinder/petfinder-js/dist/petfinder.min.js">//API Key: 3aPqyYam1lM9nzOX5yAUempjnMNDApTMvEwCr8VSwV4RX8j0OK  secret: LzTl7yGbikkCB9Cx5yBr3vIfUyGl7bmCdLp3JAXT</script>
-    
+        <script src="https://unpkg.com/@petfinder/petfinder-js/dist/petfinder.min.js"></script>
+        <!-- API Key: 3aPqyYam1lM9nzOX5yAUempjnMNDApTMvEwCr8VSwV4RX8j0OK  secret: LzTl7yGbikkCB9Cx5yBr3vIfUyGl7bmCdLp3JAXT -->
+
         <!-- CSS & JS -->
         <link href="https://fonts.googleapis.com/css?family=Bevan" rel="stylesheet">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
@@ -50,10 +50,10 @@
                 <select class="paramOption" v-model="currentUser">
                     <option v-for="user in userList" v-bind:value="{ id: user, text: user }">{{ user }}</option>
                 </select>
-                <br>
+                <br/>
 
                 Showing data for the selected user
-                <br>
+                <br/>
         <div class="dogGrid">
                 <div class="wishBox" v-for="pet in wishlistAdmin">
                     <p class="wLabel"><span>{{pet.name}}</span><span v-if="pet.species == 'Dog'"><i class="fas fa-dog iconpad"></i></span><span v-else><i class="fas fa-cat iconpad"></i></span></p>
