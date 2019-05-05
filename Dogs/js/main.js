@@ -35,6 +35,14 @@ function init() {
     app.mounted();
 }
 
+//Footer component that is slightly different from the included footer html syntax
+Vue.component('my-footer',{
+    props:['creator1','creator2'],
+    template: `<div class="footer">
+    <p>© {{creator1}} & {{creator2}} 2019. All Rights Reserved.</p>
+</div>`
+})
+
 //Vue app used
 //Functions include 
 /**Search: sets up the intitial loading once the search button is pressed and resets any relevant information
@@ -67,9 +75,12 @@ const app = new Vue({
             id: "",
             text: ""
         },
-        currentPic: "No Photo to Show"
+        currentPic: "No Photo to Show",
+        creator1: "Behan",
+        creator2: "Bernstein"
 
     },
+    components:{},
     methods: {
 
         search() {
@@ -361,6 +372,4 @@ function createUserID() {
     let num = Math.random() * 2000 + 1;
     tempID = Math.round(num);
 }
-
-
 
